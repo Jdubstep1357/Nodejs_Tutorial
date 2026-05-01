@@ -1,7 +1,6 @@
+const path = require('path');
 
-var log = require('./logger');
+// displays directory
+var pathObj = path.parse(__filename);
 
-// From log function in loggerr.log
-log('message');
-
-// console.log(module);
+console.log(pathObj);
