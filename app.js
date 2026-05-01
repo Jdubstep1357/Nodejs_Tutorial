@@ -1,10 +1,13 @@
-const fs = require('fs');
+// Class - Properties and behaviors
+const EventEmitter = require('events');
 
-// const files = fs.readdirSync('./');
-// console.log(files);
+// Onject - Instance of class
+const emitter = new EventEmitter();
 
-
-fs.readdir('./', function(err, files) {
-    if (err) console.log('Error: ', err);
-    else console.log('Result', files);
+// Register a listener
+emitter.on('messageLogged', function() {
+    console.log('Listener called');
 });
+
+// Emit - make a noise, product something - signaling event happened
+emitter.emit('messageLogged');
