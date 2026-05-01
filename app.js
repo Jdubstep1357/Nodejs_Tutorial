@@ -4,10 +4,11 @@ const EventEmitter = require('events');
 // Onject - Instance of class
 const emitter = new EventEmitter();
 
-// Register a listener
-emitter.on('messageLogged', function() {
-    console.log('Listener called');
+// Register a listener - passed data from raised event
+emitter.on('messageLogged', (arg) => { // e, eventArg
+    console.log('Listener called', arg);
 });
 
-// Emit - make a noise, product something - signaling event happened
-emitter.emit('messageLogged');
+// Raise an event
+emitter.emit('messageLogged', { id: 1, url: 'http:/' });
+
