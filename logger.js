@@ -1,27 +1,20 @@
-// under the hood this is how node.js is executed
+const EventEmitter = require('events');
 
 
-    console.log(__filename);
-    console.log(__dirname);
+var url = 'http://mylogger.io/log';
 
-
-
-    // Module for login messages
-    var url = 'http://mylogger.io/log';
-
-    function log(message) {
-        // send an HTTP request
+class Logger extends EventEmitter {
+    // Method - function inside of class
+    log(message) {
+        // Send an HTTP request
         console.log(message);
+
+        // Raise an event
+        this.emit('messageLogged', { id: 1, url: 'http:/' });
+
     }
+}
 
 
-    // Adding method log to exports object
-    module.exports = log;
 
-    // OKAY
-    module.exports.log = log;
-    exports.log = log;
-
-    // WPMT WORK, references exports at top
-    // exports = log; // module.exports
-
+module.exports = Logger;
