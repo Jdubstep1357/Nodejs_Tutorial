@@ -7,7 +7,18 @@ const app = express();
 app.use(express.json());
 
 
+// custom middleware function
+app.use(function(req, res, next) {
+    console.log('Logging... ');
+    // shows the newer middleware function in pileline; without it request will go on indefinately
+    next();
+});
 
+
+app.ujse(function(req, res, next) {
+    console.log('Authenticating... ');
+    next();
+})
 
 
 // GENRE Exercise
