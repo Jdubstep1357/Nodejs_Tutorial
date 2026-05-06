@@ -1,5 +1,6 @@
 // installed from npm
 const Joi = require('joi');
+require('./logger');
 const express = require('express');
 const app = express();
 
@@ -7,12 +8,8 @@ const app = express();
 app.use(express.json());
 
 
-// custom middleware function
-app.use(function(req, res, next) {
-    console.log('Logging... ');
-    // shows the newer middleware function in pileline; without it request will go on indefinately
-    next();
-});
+// logger - middleware from logger.js
+app.use(logger);
 
 
 app.ujse(function(req, res, next) {
