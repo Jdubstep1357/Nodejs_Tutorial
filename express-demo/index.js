@@ -11,6 +11,11 @@ const express = require('express');
 const app = express();
 
 
+// template engine
+app.set('view engine', 'pug');
+app.set('views', './views'); //default
+
+
 
 // middleware - returns json and app.use uses middleware json parses json
 app.use(express.json());
@@ -167,9 +172,9 @@ function validateCourse(course) {
 
 
 
-// first gets path or URL root of website, 2nd callback function
+// references views/index.pug
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.render('index', { title: 'My Express App', message: "Hello" });
 });
 
 
