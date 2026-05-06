@@ -6,9 +6,13 @@ const config = require('config');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const Joi = require('joi');
-const logger = require('./logger');
+const logger = require('./middleware/logger');
+
+// ROUTES
 const courses = require('.routes/courses');
 const home = require('.routers/home');
+const genres = require('.routes/genres.js');
+
 const express = require('express');
 const app = express();
 
@@ -28,6 +32,8 @@ app.use(express.static('public'));
 app.use(helmet());
 // tells express that for any routes use courses
 app.use('/api/courses', courses);
+app.use('/api/genres', genres);
+
 app.use('/', home);
 
 // Configuration - Goes through config - json file
@@ -52,12 +58,6 @@ app.use(function(req, res, next) {
     console.log('Authenticating... ');
     next();
 });
-
-
-
-
-
-
 
 
 // PORT - an enviornment variable

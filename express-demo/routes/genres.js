@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router();
+
 // GENRE Exercise
 
 
@@ -9,26 +12,14 @@ const genres = [
 ];
 
 
-// Validate Course
-function validateGenre(genre) {
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-    });
-
-    return schema.validate(genre);  
-}
-
-
-
-
 // GET
-app.get('/api/genres', (req, res) => {
+app.get('/', (req, res) => {
     res.send(genres);
 });
 
 
 // GET specific ID
-app.get('/api/genres/:id', (req, res) => {
+app.get('/:id', (req, res) => {
     const genre = genres.find(c => c.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send("The genre with the given ID was not found");
     res.send(genre);
@@ -38,7 +29,7 @@ app.get('/api/genres/:id', (req, res) => {
 
 // ADDING TO COURSE
 
-app.post('/api/genres', (req, res) => {
+app.post('/', (req, res) => {
 
         const { error } = validateGenre(req.body);
 
@@ -58,7 +49,7 @@ app.post('/api/genres', (req, res) => {
 
 
 // UPDATE
-app.put('/api/genres/:id', (req, res) => {
+app.put('/:id', (req, res) => {
 
     // Look up the course
     // If not existing, return 404
@@ -80,7 +71,7 @@ app.put('/api/genres/:id', (req, res) => {
 
 
 // DELTTE
-app.delete('/api/genres/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
 const genre = genres.find(c => c.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send("The course with the given ID was not found");
 
@@ -93,10 +84,14 @@ const genre = genres.find(c => c.id === parseInt(req.params.id));
 
 
 
+// Validate Course
+function validateGenre(genre) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+    });
+
+    return schema.validate(genre);  
+}
 
 
-
-/* ----------------------------------------------------
-    --------------- End of GENRE Exercise ------------
-------------------------------------------------------*/ 
-
+module.exports = genres_router;
