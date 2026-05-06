@@ -1,3 +1,6 @@
+// Gets function for debugging namespace
+const debug = require('debug')('app:startup');
+
 const config = require('config');
 // installed from npm - look up packages on npm for more info
 const morgan = require('morgan');
@@ -26,10 +29,11 @@ console.log('Mail Password ' + config.get('mail.password'));
 
 // if export NODE_ENV = production in terminal is true, morgan wont be enabled
 if (app.get('env') === 'development') {
-// displays in terminal every time a request is sent
-    app.use(morgan('tiny'));
-    console.log('morgan enabled');
+    app.use(morgan('tiny')); // displays in terminal every time a request is sent
+    debug('morgan enabled'); // references the top
 }
+
+
 
 // logger - middleware from logger.js
 app.use(logger);
