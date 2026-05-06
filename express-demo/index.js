@@ -1,18 +1,21 @@
 // installed from npm
 const Joi = require('joi');
-require('./logger');
+const logger = require('./logger');
 const express = require('express');
 const app = express();
 
-// middleware - returns json and app.use uses middleware json
+// middleware - returns json and app.use uses middleware json parses json
 app.use(express.json());
-
+// pass arrays and complex objects with URL format
+app.use(express.urlencoded({ extended: true }));
+// serve static files
+app.use(express.static('public'));
 
 // logger - middleware from logger.js
 app.use(logger);
 
 
-app.ujse(function(req, res, next) {
+app.use(function(req, res, next) {
     console.log('Authenticating... ');
     next();
 })
@@ -39,9 +42,7 @@ function validateGenre(genre) {
 }
 
 
-// PORT
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+
 
 // GET
 app.get('/api/genres', (req, res) => {
@@ -51,7 +52,7 @@ app.get('/api/genres', (req, res) => {
 
 // GET specific ID
 app.get('/api/genres/:id', (req, res) => {
-    const genre = courses.find(c => c.id === parseInt(req.params.id));
+    const genre = genres.find(c => c.id === parseInt(req.params.id));
     if (!genre) return res.status(404).send("The genre with the given ID was not found");
     res.send(genre);
 });
@@ -71,10 +72,10 @@ app.post('/api/genres', (req, res) => {
 
     // Read course object, use properties to create new course object, and add it to course array
     const genre = {
-        id: genre.length + 1,
+        id: genres.length + 1,
         name: req.body.name
     };
-    genre.push(genre);
+    genres.push(genre);
     res.send(genre);
 });
 
@@ -89,7 +90,6 @@ app.put('/api/genres/:id', (req, res) => {
     
 
     const result = validateGenre(req.body);
-    const { error } = validateGenre(req.body); // result.error
 
     if (error) return res.status(400).send(error.details[0].message);
     
