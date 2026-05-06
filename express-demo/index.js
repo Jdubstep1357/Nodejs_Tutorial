@@ -1,4 +1,6 @@
-// installed from npm
+// installed from npm - look up packages on npm for more info
+const morgan = require('morgan');
+const helmet = require('helmet');
 const Joi = require('joi');
 const logger = require('./logger');
 const express = require('express');
@@ -10,6 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
+app.use(helmet());
+// Look up documentation on npm for more specification
+// displays in terminal every time a request is sent
+app.use(morgan('tiny'));
 
 // logger - middleware from logger.js
 app.use(logger);
