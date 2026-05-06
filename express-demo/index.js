@@ -1,3 +1,4 @@
+const config = require('config');
 // installed from npm - look up packages on npm for more info
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -15,6 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
 app.use(helmet());
+
+
+// Configuration - Goes through config - json file
+console.log('Application Name: ' + config.get('name'));
+console.log('Mail Server ' + config.get('mail.host'));
+// from custom-enviornment-variables.json
+console.log('Mail Password ' + config.get('mail.password'));
 
 // if export NODE_ENV = production in terminal is true, morgan wont be enabled
 if (app.get('env') === 'development') {
