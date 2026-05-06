@@ -6,6 +6,8 @@ const logger = require('./logger');
 const express = require('express');
 const app = express();
 
+
+
 // middleware - returns json and app.use uses middleware json parses json
 app.use(express.json());
 // pass arrays and complex objects with URL format
@@ -13,9 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 // serve static files
 app.use(express.static('public'));
 app.use(helmet());
-// Look up documentation on npm for more specification
+
+// if export NODE_ENV = production in terminal is true, morgan wont be enabled
+if (app.get('env') === 'development') {
 // displays in terminal every time a request is sent
-app.use(morgan('tiny'));
+    app.use(morgan('tiny'));
+    console.log('morgan enabled');
+}
 
 // logger - middleware from logger.js
 app.use(logger);
