@@ -6,28 +6,28 @@
 
 
 
-// Asynchronous
 console.log('Before');
-getUser(1, (user) => {
-
-    // 2nd argument array of strings
-    getRepositories(user.guitHubUsername, (repos) => {
-        getCommits(repos, (commits) => {\
-            // CALLBACK HELL - Very difficult to read or understand
-
-        });
-    });
-});
+getUser(1, getRepositories);
 console.log('After');
 
+// SOLUTION TO CALLBACK HELL
+
+// 1st getRrepositories takes a user object
+// 2nd getRepositories takes string and callback function
+function getRepositories(user) {
+    getRepositories(user.guitHubUsername, getCommits);
+}
 
 
-// Synchronous
-console.log('Before');
-const user = getUser(1);
-const repos = getRepositories(user.gitHubUsername);
-const commits = getCommits(repos[0]);
-console.log('After');
+function getCommits(repos) {
+    getCommits(repos, displayCommits);
+}
+
+
+// function gets array of commits and display commits to console
+function displayCommits(commits) {
+    console.log(commits)
+}
 
 
 
