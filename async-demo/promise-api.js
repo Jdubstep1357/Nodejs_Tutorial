@@ -13,6 +13,7 @@ const p2 = new Promise((resolve) => {
 });
 
 
-// After both promises complete, do something
-Promise.all([p1, p2])
-    .then(result => console.log(result));
+// as soon as one promise in array is fuilfilled, first one done is shown
+Promise.race([p1, p2])
+    .then(result => console.log(result))
+    .catch(err => console.log('Error', err.message));
