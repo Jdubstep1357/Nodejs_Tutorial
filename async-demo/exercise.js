@@ -80,10 +80,10 @@ function getTopMovies(resolve, reject) {
 
 }
 
-// function sendEmail(email, movies) {
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve();
-//         }, 4000);
-//     });
-// }
+function sendEmail(email, movies) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, 4000);
+    });
+}
