@@ -54,9 +54,9 @@ function getRepositories(username) {
     return new Promise((resolve, reject) => {
   setTimeout(() => {
     console.log('Calling GitHub API...');
-    // resolve(['repo1', 'repo2', 'repo3']);
+    resolve(['repo1', 'repo2', 'repo3']);
     // ERROR
-    reject(new Error('Could not get the repos.'));
+    // reject(new Error('Could not get the repos.'));
   }, 2000);
     });
 
